@@ -20,12 +20,19 @@ message = email.message.EmailMessage()
 message["From"] = mail_from
 message["To"] = mail_to
 message["Subject"] = subject
+
+# Demande de l'adresse du serveur SMTP à utiliser 
+host_to_use = input("Entrez le domaine du serveur SMTP à utiliser :")
+
+#Contenu de l'email 
+
 message.set_content(body)
 
-#Envoi du courriel avec le protocole SMTP par le serveur de l'université Laval
+
+#Envoi du courriel avec le protocole SMTP sur le serveur demandé
 
 try:
-    with smtplib.SMTP(host="smtp.ulaval.ca", timeout=10) as connection:
+    with smtplib.SMTP(host=host_to_use, timeout=10) as connection:
         connection.send_message(message)
         print("Message envoyé avec succès.")
 except smtplib.SMTPException:
